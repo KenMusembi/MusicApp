@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     String[] items;
-
     Button btncurrentlyplaying;
 
     @Override
@@ -51,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
         btncurrentlyplaying = findViewById(R.id.btncurrentlyplaying);
 
+        btncurrentlyplaying.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //try to redirect to currently playing audio on button click
+                getLayoutInflater().inflate(R.layout.activity_player, null);
+            }
+        });
     }
 
     //Using Dexter to handle runtime permissions
