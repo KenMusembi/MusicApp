@@ -29,6 +29,8 @@ android {
 }
 
 dependencies {
+    //for notifications
+    implementation 'androidx.media:media:1.4.0'
     //for handling permissions
     implementation 'com.karumi:dexter:6.2.2'
     //for visualizations

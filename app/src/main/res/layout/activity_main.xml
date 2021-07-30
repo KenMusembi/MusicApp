@@ -23,7 +23,7 @@
     android:id="@+id/btncurrentlyplaying"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:text="Go to Cureently Playing Song">
+    android:text="@string/go_to_currently_playing_song">
 
 </Button>
 

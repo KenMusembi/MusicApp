@@ -134,6 +134,16 @@
                 app:backgroundTint="#FBFBFB" />
 
             <Button
+                android:id="@+id/btnrepeat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/btnfr"
+                android:background="@drawable/ic_baseline_repeat_one_24"
+                app:backgroundTint="#FFFFFF"></Button>
+
+            <Button
                 android:id="@+id/btnfr"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

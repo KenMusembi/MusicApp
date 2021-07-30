@@ -2,15 +2,25 @@ package com.nextken.music;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +35,7 @@ import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
 
-    Button btnplay, btnnext, btnprev, btnff, btnfr;
+    Button btnplay, btnnext, btnprev, btnff, btnfr, btnrepeat;
     TextView txtsname, txtstart, txtstop;
     SeekBar seekmusic;
     BarVisualizer visualizer;
@@ -37,6 +47,8 @@ public class PlayerActivity extends AppCompatActivity {
     int position;
     ArrayList<File> mySongs;
     Thread updateseekbar;
+
+    NotificationManager notificationManager;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -68,6 +80,7 @@ public class PlayerActivity extends AppCompatActivity {
         btnff = findViewById(R.id.btnff);
         btnfr = findViewById(R.id.btnfr);
         btnplay = findViewById(R.id.playbtn);
+        btnrepeat = findViewById(R.id.btnrepeat);
         txtsname = findViewById(R.id.txtsn);
         txtstart = findViewById(R.id.txtstart);
         txtstop = findViewById(R.id.txtstop);
@@ -94,6 +107,14 @@ public class PlayerActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
         mediaPlayer.start();
+
+        //show notification
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            createChannel();
+        }
+
+        CreateNotification.createNotification(PlayerActivity.this, mySongs.get(1), R.drawable.ic_baseline_pause_24,
+                1, 1);
 
         updateseekbar = new Thread(){
             @Override
@@ -194,6 +215,14 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
+        btnrepeat.setOnClickListener(new View.OnClickListener()   {
+           @Override
+           public void onClick(View v){
+               mediaPlayer.setLooping(true);
+               mediaPlayer.start();
+           }
+        });
+
         //on completion listener
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -243,6 +272,23 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void createChannel() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CreateNotification.CHANNEL_ID,
+                    "Ken Dev", NotificationManager.IMPORTANCE_LOW);
+
+            notificationManager = getSystemService(NotificationManager.class);
+            if(notificationManager != null){
+                    notificationManager.createNotificationChannel(channel);
+
+        }
+    }
+    }
+
+
+
+
 
     public void startAnimation(View view){
         ObjectAnimator animator = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);

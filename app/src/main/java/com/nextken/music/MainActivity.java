@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
     //Using Dexter to handle runtime permissions
     public void runtimePermission(){
         //ask for these two permissions at runtime
-        Dexter.withContext(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
+        Dexter.withContext(this).
+                withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                        //goes to the displaysongs method if permissions are granted
+                        //goes to the display songs method if permissions are granted
                         displaySongs();
                     }
 

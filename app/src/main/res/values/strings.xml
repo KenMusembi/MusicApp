@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Nextken Music</string>
     <string name="currently_playing">Currently Playing</string>
+    <string name="go_to_currently_playing_song">Go to Currently Playing Song</string>
 </resources>
