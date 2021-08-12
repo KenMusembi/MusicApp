@@ -196,6 +196,8 @@ public class PlayerActivity extends AppCompatActivity {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("working");
+
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 position = ((position+1)%mySongs.size());
@@ -212,6 +214,7 @@ public class PlayerActivity extends AppCompatActivity {
                 if (audiosessionId != 1){
                     visualizer.setAudioSessionId(audiosessionId);
                 }
+
             }
         });
 
